@@ -47,6 +47,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 94e04660063b4df47ae39c1275c91329, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTexTwo:
+        m_Texture: {fileID: 2800000, guid: 94e04660063b4df47ae39c1275c91329, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normal0:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,7 +72,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SideTex:
-        m_Texture: {fileID: 2800000, guid: 7e08da7aea85f33469799ad03671c2a8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2088a0028997ef04dbe14bf1953967ea, type: 3}
         m_Scale: {x: 7.27, y: 6.61}
         m_Offset: {x: 0, y: 0}
     - _Splat0:
@@ -83,9 +91,13 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TopSecondaryTex:
+        m_Texture: {fileID: 2800000, guid: d332a0eb4655e3c48ad4595903d03cc7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TopTex:
-        m_Texture: {fileID: 2800000, guid: 404d03b61cfeefe458c8570f1166c3f7, type: 3}
-        m_Scale: {x: 0.86, y: 0.76}
+        m_Texture: {fileID: 2800000, guid: c3e2f13bfef99744e853c8d5b22fcd9f, type: 3}
+        m_Scale: {x: -0.28, y: 0.76}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
@@ -95,12 +107,20 @@ Material:
     - _Metallic1: 0
     - _Metallic2: 0
     - _Metallic3: 0
+    - _NoiseScale: -0.1
+    - _NoiseScaleTwo: 0.36
+    - _RotationDegrees: 63.8
+    - _SideScale: -0.12
     - _Smoothness0: 0.5
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
-    - _TexturePaintStep: 12.5
+    - _TexturePaintStep: 13
+    - _TexturePrimScale: 0.06
+    - _TextureScale: 0.2
     - _TextureStep: 100
+    - _UVDistortionStrength: 0
+    - _UVDistortionStrengthTwo: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

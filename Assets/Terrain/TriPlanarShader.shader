@@ -232,26 +232,25 @@ Shader "Custom/TriPlanarShader"
 
             inline half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten)
             {
-                half3 normal = normalize(s.Normal);
-                half NdotL = dot(normal, lightDir);
+                half NdotL = dot(s.Normal, lightDir);
+                // Hard step to create toon band
+                half diff = step(.5, NdotL);
 
-                // Toon steps
-                half ramp = 0;
-                if (NdotL > _LightRamp)
-                    ramp = 1.0;
-                else 
-                    ramp = _ShadowStrength;
-              
 
-                half3 c = s.Albedo * _LightColor0.rgb * ramp * atten;
+                // Apply shadow strength (1 = fully lit, 0 = fully black shadow)
+                atten = lerp(1.0 - _ShadowStrength, 1.0, atten); // atten is still smooth here
 
-                return half4(c, 1.0);
+                // Then step to get hard-edged shadow band
+                half shadowStep = step(0.5, atten);
+
+                half3 col = s.Albedo * _LightColor0.rgb * (diff * shadowStep * _LightRamp);
+                return half4(col, 1.0);
+
             }
-
 
 
             ENDCG
         }
 
-            FallBack "Diffuse"
+            FallBack "Legacy Shaders/VertexLit"
 }

@@ -25,6 +25,9 @@ Shader "Custom/TriPlanarShader"
         _Metallic("Metallic", Range(0,1)) = 0.0
         _Color("Color Tint", Color) = (1,1,1,1)
 
+         _LightRamp("Light Ramp", Range(0,1)) = 0.5
+         _ShadowStrength("Shadow Strength", Range(0,1)) = 0.7
+
         _NoiseTex("Noise Texture", 2D) = "white" {}
         _NoiseScale("Noise Scale", Float) = 0.5
         _UVDistortionStrength("UV Distortion Strength", Float) = 0.05
@@ -49,7 +52,8 @@ Shader "Custom/TriPlanarShader"
             LOD 200
 
             CGPROGRAM
-            #pragma surface surf Standard fullforwardshadows
+            //#pragma surface surf Standard fullforwardshadows
+            #pragma surface surf ToonRamp fullforwardshadows
             #pragma target 3.0
 
             sampler2D _TopTex;
@@ -77,6 +81,8 @@ Shader "Custom/TriPlanarShader"
             half _TextureStep;
             half _TexturePaintStep;
             float _RotationDegrees;
+            float _LightRamp;
+            float _ShadowStrength;
             fixed4 _Color;
 
             sampler2D _NoiseTex;
@@ -121,7 +127,7 @@ Shader "Custom/TriPlanarShader"
                 Out = UV;
             }
 
-            void surf(Input IN, inout SurfaceOutputStandard o)
+            void surf(Input IN, inout SurfaceOutput o)
             {
                 float3 normal = normalize(IN.worldNormal);
                 float3 blends = abs(normal);
@@ -220,9 +226,30 @@ Shader "Custom/TriPlanarShader"
                 
 
                 o.Albedo = finalColor * _Color.rgb;
-                o.Metallic = _Metallic;
-                o.Smoothness = _Glossiness;
+             /*   o.Metallic = _Metallic;
+                o.Smoothness = _Glossiness;*/
             }
+
+            inline half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten)
+            {
+                half3 normal = normalize(s.Normal);
+                half NdotL = dot(normal, lightDir);
+
+                // Toon steps
+                half ramp = 0;
+                if (NdotL > _LightRamp)
+                    ramp = 1.0;
+                else 
+                    ramp = _ShadowStrength;
+              
+
+                half3 c = s.Albedo * _LightColor0.rgb * ramp * atten;
+
+                return half4(c, 1.0);
+            }
+
+
+
             ENDCG
         }
 

@@ -23,6 +23,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _ReflectionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SurfaceDistortion:
         m_Texture: {fileID: 2800000, guid: 96560a54ca8cdf54f823827af0bcaab0, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -36,13 +40,14 @@ Material:
     - _DepthMaxDistance: 14.2
     - _FoamMaxDistance: 0.93
     - _FoamMinDistance: 7.8
+    - _ReflectionStrength: 0
     - _SurfaceDistortionAmount: 0.22
     - _SurfaceNoiseCutoff: 0.542
     - _WaveAmp: 0.015
     - _WaveFreq: 80
     m_Colors:
-    - _DepthGradientDeep: {r: 0, g: 0.38078457, b: 0.3882353, a: 1}
-    - _DepthGradientShallow: {r: 0.43120328, g: 0.9622642, b: 0.7318031, a: 0.725}
+    - _DepthGradientDeep: {r: 0.06007476, g: 0.4716981, b: 0.44926155, a: 1}
+    - _DepthGradientShallow: {r: 0.43137252, g: 0.9607843, b: 0.8061469, a: 0.725}
     - _Direction: {r: 1, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _SurfaceNoiseScroll: {r: 0.02, g: 0.02, b: 0, a: 0}

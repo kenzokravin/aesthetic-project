@@ -38,6 +38,10 @@ Shader "Custom/ToonWater"
 		// to foam being rendered.
 		_FoamMaxDistance("Foam Maximum Distance", Float) = 0.4
 		_FoamMinDistance("Foam Minimum Distance", Float) = 0.04
+
+
+		_ReflectionTex("Reflection Texture", 2D) = "black" {}
+		_ReflectionStrength("Reflection Strength", Range(0, 1)) = 0.5
 	}
 		SubShader
 	{
@@ -85,7 +89,12 @@ Shader "Custom/ToonWater"
 			float2 distortUV : TEXCOORD1;
 			float4 screenPosition : TEXCOORD2;
 			float3 viewNormal : NORMAL;
+			float4 worldPos : TEXCOORD3;
 		};
+
+		sampler2D _ReflectionTex;
+		float4x4 _MainCameraVP;
+		float _ReflectionStrength;
 
 		sampler2D _SurfaceNoise;
 		float4 _SurfaceNoise_ST;
@@ -116,7 +125,14 @@ Shader "Custom/ToonWater"
 
 			v.vertex.xyz = pos;
 
+			float3 displacedPos = pos;
+			float4 worldPos = mul(unity_ObjectToWorld, float4(displacedPos, 1.0));
+
+
 			v2f o;
+
+			o.worldPos = worldPos;
+
 			o.vertex = UnityObjectToClipPos(v.vertex);
 			o.screenPosition = ComputeScreenPos(o.vertex);
 			o.distortUV = TRANSFORM_TEX(v.uv, _SurfaceDistortion);
@@ -141,8 +157,33 @@ Shader "Custom/ToonWater"
 		sampler2D _CameraDepthTexture;
 		sampler2D _CameraNormalsTexture;
 
+		// 2D Voronoi function returning cell distance (simplified)
+		float voronoi(in float2 x)
+		{
+			float2 n = floor(x);
+			float2 f = frac(x);
+
+			float md = 8.0; // minimum distance
+			for (int j = -1; j <= 1; j++)
+			{
+				for (int i = -1; i <= 1; i++)
+				{
+					float2 g = float2(i, j);
+					float2 o = frac(sin(dot(n + g, float2(12.9898, 78.233))) * 43758.5453);
+					float2 r = g + o - f;
+					float d = dot(r, r);
+					if (d < md)
+						md = d;
+				}
+			}
+			return md;
+		}
+
+
 		float4 frag(v2f i) : SV_Target
 		{
+
+
 			// Retrieve the current depth value of the surface behind the
 			// pixel we are currently rendering.
 			float existingDepth01 = tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.screenPosition)).r;
@@ -195,7 +236,51 @@ Shader "Custom/ToonWater"
 		surfaceNoiseColor.a *= step(0.5,surfaceNoise);
 
 		// Use normal alpha blending to combine the foam with the surface.
-		return alphaBlend(surfaceNoiseColor, waterColor);
+		//return alphaBlend(surfaceNoiseColor, waterColor);
+
+		// Get screen UV
+		float2 screenUV = i.screenPosition.xy / i.screenPosition.w;
+		screenUV.y = 1 - screenUV.y; // Flip Y for Unity
+
+		// Sample reflection
+		//float4 reflectionCol = tex2Dproj(_ReflectionTex, UNITY_PROJ_COORD(i.screenPosition));
+		float4 projPos = mul(_MainCameraVP, i.worldPos);
+		float4 screenUV2 = ComputeScreenPos(projPos);
+		float4 reflectionCol = tex2Dproj(_ReflectionTex, UNITY_PROJ_COORD(screenUV2));
+
+		// Mix with water surface color
+		float4 waterWithReflection = lerp(waterColor, reflectionCol, _ReflectionStrength);
+		float4 finalColor = alphaBlend(surfaceNoiseColor, waterWithReflection);
+
+		float voronoiScale = 100.0;
+		float v = voronoi(i.noiseUV * voronoiScale * 0.10);
+
+		v = step(surfaceNoiseSample, v);
+
+		float edge = smoothstep(0.1, 0.6, v);
+		float4 voronoiColor = float4(edge, edge, edge, 1);
+
+		float4 waterWithVoronoi = waterWithReflection * (0.7 + 0.3 * voronoiColor);
+
+
+		float voronoiScale2 = 90.0;
+		float v2 = voronoi(i.noiseUV * voronoiScale2 * 0.15);
+
+		v2 = step(surfaceNoiseSample, v2);
+
+		float edge2 = smoothstep(0.4, 0.5, v2);
+		float4 voronoiColor2 = float4(edge2, edge2, edge2, 1);
+
+		float4 waterWithVoronoi2 = waterWithVoronoi * (0.7 + 0.3 * voronoiColor2);
+
+		return alphaBlend(surfaceNoiseColor, waterWithVoronoi2);
+
+
+
+		return finalColor;
+
+		
+
 	}
 	ENDCG
 }

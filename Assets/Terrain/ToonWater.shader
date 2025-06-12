@@ -28,7 +28,11 @@ Shader "Custom/ToonWater"
 		_SurfaceDistortion("Surface Distortion", 2D) = "white" {}
 
 	// Multiplies the distortion by this value.
-	_SurfaceDistortionAmount("Surface Distortion Amount", Range(0, 1)) = 0.27
+		_SurfaceDistortionAmount("Surface Distortion Amount", Range(0, 1)) = 0.27
+
+		_WaveAmp("Wave Amplitude", Range(0, 1)) = 0.27
+		_WaveFreq("Wave Frequency", Range(0, 100)) = 0.27
+		_Direction("Direction", Vector) = (1.0,0.0,0.0,1.0)
 
 		// Control the distance that surfaces below the water will contribute
 		// to foam being rendered.
@@ -89,10 +93,30 @@ Shader "Custom/ToonWater"
 		sampler2D _SurfaceDistortion;
 		float4 _SurfaceDistortion_ST;
 
+		float4 _Direction;
+		float _WaveFreq;
+		float _WaveAmp;
+
 		v2f vert(appdata v)
 		{
-			v2f o;
+			float3 pos = v.vertex.xyz;
+			float4 dir = normalize(_Direction); // Your wave direction (should be in world or object space)
 
+			float defaultWavelength = 2 * UNITY_PI;
+			float wL = defaultWavelength / _WaveFreq;
+
+			// Phase: wave propagation speed
+			float phase = sqrt(9.8 / wL);
+
+			// Position in wave cycle (dot gives directional displacement)
+			float disp = wL * (dot(dir.xyz, pos) - (phase * _Time.y));
+
+			// Apply sine wave displacement along Y axis
+			pos.y += _WaveAmp * sin(disp);
+
+			v.vertex.xyz = pos;
+
+			v2f o;
 			o.vertex = UnityObjectToClipPos(v.vertex);
 			o.screenPosition = ComputeScreenPos(o.vertex);
 			o.distortUV = TRANSFORM_TEX(v.uv, _SurfaceDistortion);

@@ -61,7 +61,7 @@ Shader "Custom/ToonWater"
 
 			#pragma vertex vert
 			#pragma fragment frag
-
+			#pragma multi_compile_fog
 			#include "UnityCG.cginc"
 
 		// Blends two colors using the same algorithm that our shader is using
@@ -86,10 +86,15 @@ Shader "Custom/ToonWater"
 		{
 			float4 vertex : SV_POSITION;
 			float2 noiseUV : TEXCOORD0;
+
+			
+
 			float2 distortUV : TEXCOORD1;
 			float4 screenPosition : TEXCOORD2;
 			float3 viewNormal : NORMAL;
 			float4 worldPos : TEXCOORD3;
+
+			UNITY_FOG_COORDS(4) //Using TEXCOORD4 as it is available.
 		};
 
 		sampler2D _ReflectionTex;
@@ -139,6 +144,8 @@ Shader "Custom/ToonWater"
 			o.noiseUV = TRANSFORM_TEX(v.uv, _SurfaceNoise);
 			o.viewNormal = COMPUTE_VIEW_NORMAL;
 
+			UNITY_TRANSFER_FOG(o, o.vertex);
+
 			return o;
 		}
 
@@ -163,7 +170,7 @@ Shader "Custom/ToonWater"
 			float2 n = floor(x);
 			float2 f = frac(x);
 
-			float md = 8.0; // minimum distance
+			float md = 1.0; // minimum distance
 			for (int j = -1; j <= 1; j++)
 			{
 				for (int i = -1; i <= 1; i++)
@@ -273,8 +280,12 @@ Shader "Custom/ToonWater"
 
 		float4 waterWithVoronoi2 = waterWithVoronoi * (0.7 + 0.3 * voronoiColor2);
 
-		return alphaBlend(surfaceNoiseColor, waterWithVoronoi2);
 
+
+		finalColor = alphaBlend(surfaceNoiseColor, waterWithVoronoi2);
+
+		UNITY_APPLY_FOG(i.fogCoord, finalColor);
+		return finalColor;
 
 
 		return finalColor;

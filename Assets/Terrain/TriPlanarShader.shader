@@ -233,19 +233,23 @@ Shader "Custom/TriPlanarShader"
             inline half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten)
             {
                 half NdotL = dot(s.Normal, lightDir);
-                // Hard step to create toon band
-                half diff = step(.5, NdotL);
 
+                // Toon band for diffuse
+                half diff = step(0.5, NdotL);
 
-                // Apply shadow strength (1 = fully lit, 0 = fully black shadow)
-                atten = lerp(1.0 - _ShadowStrength, 1.0, atten); // atten is still smooth here
+                // Simulated self-shadow: lower light when surface faces away from light
+                // This adds 'fake' shading where real-time shadows don't apply (like self-shadowing)
+                half fakeSelfShadow = lerp(_ShadowStrength, 1.0, diff);
 
-                // Then step to get hard-edged shadow band
+                // Real-time shadow from other objects
                 half shadowStep = step(0.5, atten);
+                half realShadow = lerp(_ShadowStrength, 1.0, shadowStep);
 
-                half3 col = s.Albedo * _LightColor0.rgb * (diff * shadowStep * _LightRamp);
+                // Combine both
+                half lightingFactor = fakeSelfShadow * realShadow;
+
+                half3 col = s.Albedo * _LightColor0.rgb * (lightingFactor * _LightRamp);
                 return half4(col, 1.0);
-
             }
 
 

@@ -72,7 +72,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SideTex:
-        m_Texture: {fileID: 2800000, guid: 2088a0028997ef04dbe14bf1953967ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: c377c1d1c3942b74d92770fcc52af4da, type: 3}
         m_Scale: {x: 7.27, y: 6.61}
         m_Offset: {x: 0, y: 0}
     - _Splat0:
@@ -92,11 +92,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopSecondaryTex:
-        m_Texture: {fileID: 2800000, guid: d332a0eb4655e3c48ad4595903d03cc7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 176ed33f07dc28f4abc86ccabba6a3b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopTex:
-        m_Texture: {fileID: 2800000, guid: c3e2f13bfef99744e853c8d5b22fcd9f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 176ed33f07dc28f4abc86ccabba6a3b2, type: 3}
         m_Scale: {x: -0.28, y: 0.76}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -121,7 +121,7 @@ Material:
     - _TexturePrimScale: 0.06
     - _TextureScale: 0.2
     - _TextureStep: 100
-    - _UVDistortionStrength: 0
+    - _UVDistortionStrength: 0.75
     - _UVDistortionStrengthTwo: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

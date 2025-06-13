@@ -192,11 +192,22 @@ Shader "Custom/TriPlanarShader"
                 if (hasSplat)
                 {
 
+                    
+
 
                     float3 splat0 = tex2D(_Splat0, IN.uv_Splat0).rgb;
                     float3 splat1 = tex2D(_Splat1, IN.uv_Splat1).rgb;
                     float3 splat2 = tex2D(_Splat2, IN.uv_Splat2).rgb;
                     float3 splat3 = tex2D(_Splat3, IN.uv_Splat3).rgb;
+
+
+                    float2 rotatedUVSplat;
+                    Unity_Rotate_Degrees_float(IN.uv_Splat1, float2(0.5, 0.5), _RotationDegrees, rotatedUVSplat);
+                    float3 splat0Layer = tex2D(_Splat1, rotatedUVSplat).rgb;
+
+
+                    //float noiseBlend = tex2D(_NoiseTex, IN.worldPos.xz * (_NoiseScale * 0.5)).r;
+                    float3 spl1 = lerp(splat1, splat0Layer, noiseBlend);
 
                     float r = pow(control.r, _TexturePaintStep);
                     float g = pow(control.g, _TexturePaintStep);
@@ -213,7 +224,7 @@ Shader "Custom/TriPlanarShader"
 
                     float3 splatColor =
                         baseColor * r +
-                        splat1 * g +
+                        spl1 * g +
                         splat2 * b +
                         splat3 * a;
 

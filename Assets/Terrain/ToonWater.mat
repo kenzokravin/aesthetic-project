@@ -48,7 +48,7 @@ Material:
     m_Colors:
     - _DepthGradientDeep: {r: 0.06007476, g: 0.4716981, b: 0.44926155, a: 1}
     - _DepthGradientShallow: {r: 0.43137252, g: 0.9607843, b: 0.8061469, a: 0.725}
-    - _Direction: {r: 1, g: 0, b: 0, a: 1}
+    - _Direction: {r: 1, g: 0, b: 0, a: 0}
     - _FoamColor: {r: 0.9009434, g: 1, b: 0.98175275, a: 1}
     - _FoamColor2: {r: 0.18396229, g: 1, b: 0.63538736, a: 1}
     - _SurfaceNoiseScroll: {r: 0.02, g: 0.02, b: 0, a: 0}

@@ -1,0 +1,83 @@
+#pragma kernel CSMain
+
+struct Boid
+{
+    float3 position;
+    float3 velocity;
+};
+
+RWStructuredBuffer<float4x4> boidMatrices;
+
+RWStructuredBuffer<Boid> boids;
+uint _NumBoids;
+float _DeltaTime;
+float _ViewRadius;
+float _AvoidRadius;
+float _AlignmentWeight;
+float _CohesionWeight;
+float _SeparationWeight;
+float _MaxSpeed;
+
+[numthreads(256, 1, 1)]
+void CSMain(uint id : SV_DispatchThreadID)
+{
+    if (id >= _NumBoids) return;
+
+    Boid self = boids[id];
+    float3 alignment = 0;
+    float3 cohesion = 0;
+    float3 separation = 0;
+    int neighborCount = 0;
+
+    for (uint i = 0; i < _NumBoids; i++)
+    {
+        if (i == id) continue;
+
+        Boid other = boids[i];
+        float3 offset = other.position - self.position;
+        float dist = length(offset);
+
+        if (dist < _ViewRadius)
+        {
+            alignment += other.velocity;
+            cohesion += other.position;
+
+            if (dist < _AvoidRadius)
+                separation -= offset / dist; // normalized
+            neighborCount++;
+        }
+    }
+
+    if (neighborCount > 0)
+    {
+        alignment = normalize(alignment / neighborCount) * _MaxSpeed - self.velocity;
+        cohesion = normalize((cohesion / neighborCount - self.position)) * _MaxSpeed - self.velocity;
+        separation = normalize(separation) * _MaxSpeed - self.velocity;
+    }
+
+    float3 acceleration =
+        _AlignmentWeight * alignment +
+        _CohesionWeight * cohesion +
+        _SeparationWeight * separation;
+
+    self.velocity += acceleration * _DeltaTime;
+    self.velocity = normalize(self.velocity) * _MaxSpeed;
+    self.position += self.velocity * _DeltaTime;
+
+    boids[id] = self;
+
+    float3 forward = normalize(self.velocity);
+    float3 up = float3(0, 1, 0); // Could make more complex if needed
+    float3 right = normalize(cross(up, forward));
+    up = cross(forward, right);
+
+    float4x4 modelMatrix = float4x4(
+        float4(right, 0),
+        float4(up, 0),
+        float4(forward, 0),
+        float4(self.position, 1)
+        );
+    boidMatrices[id] = transpose(modelMatrix); // Unity expects row-major
+
+
+}

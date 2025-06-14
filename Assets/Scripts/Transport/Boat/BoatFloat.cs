@@ -26,8 +26,9 @@ public class BoatFloat : MonoBehaviour
     void Start()
     {
 
-        
-        
+        baseWaterLevel = waterObj.transform.position.y;
+
+
     }
 
     // Update is called once per frame

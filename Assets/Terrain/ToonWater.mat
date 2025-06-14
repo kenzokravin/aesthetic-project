@@ -43,7 +43,7 @@ Material:
     - _ReflectionStrength: 0
     - _SurfaceDistortionAmount: 0.22
     - _SurfaceNoiseCutoff: 0.542
-    - _WaveAmp: 0.015
+    - _WaveAmp: 0.0025
     - _WaveFreq: 80
     m_Colors:
     - _DepthGradientDeep: {r: 0.06007476, g: 0.4716981, b: 0.44926155, a: 1}

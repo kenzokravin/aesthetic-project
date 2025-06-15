@@ -120,15 +120,15 @@ public class BoatEffectsController : MonoBehaviour
         switch (rb.linearVelocity.magnitude) //Switch statement which checks the speed of the boat to alter the particles and wake.
         {
             case < 2f:
-                main.startLifetime = .5f;
+                main.startLifetime = .25f;
                 EndTrailEmitting();
                 break;
             case < 4f:
-                main.startLifetime = 1f;
+                main.startLifetime = .5f;
                 EmitTrails();
                 break;
             case < 8f:
-                main.startLifetime = 4f;
+                main.startLifetime = 2f;
                 //ScaleWakeTrails(0.75f);
                 break;
 

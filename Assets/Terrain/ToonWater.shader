@@ -43,12 +43,22 @@ Shader "Custom/ToonWater"
 
 		_ReflectionTex("Reflection Texture", 2D) = "black" {}
 		_ReflectionStrength("Reflection Strength", Range(0, 1)) = 0.5
+
+		_RippleTex("Ripple Texture", 2D) = "black" {}
+		_RippleSpeed("Ripple Speed", Float) = 0.5
+		_RippleScale("Ripple Scale", Float) = 0.1
+		_RippleOrigin("Ripple Origin", Vector) = (0,0,0,0)
+		_RippleStartTime("Ripple Start Time", Float) = 0.0
+
+
+		
 	}
 		SubShader
 	{
 		Tags
 		{
 			"Queue" = "Transparent"
+			"RenderType" = "Transparent"
 		}
 
 		Pass
@@ -97,6 +107,12 @@ Shader "Custom/ToonWater"
 
 			UNITY_FOG_COORDS(4) //Using TEXCOORD4 as it is available.
 		};
+
+		sampler2D _RippleTex;
+		float4 _RippleOrigin; //xyz position.
+		float _RippleStartTime;
+		float _RippleSpeed;
+		float _RippleScale;
 
 		sampler2D _ReflectionTex;
 		float4x4 _MainCameraVP;
@@ -191,6 +207,45 @@ Shader "Custom/ToonWater"
 
 		float4 frag(v2f i) : SV_Target
 		{
+
+			float rippleAge = _Time.y - _RippleStartTime;
+
+			if (rippleAge > 1) {
+				//return float4(1,0,0, 1);
+			}
+
+			float2 worldXZ = i.worldPos.xz;
+			//float2 ripplePos = _RippleOrigin.xz;
+
+			float2 ripplePos = float2(0, 0);
+
+			float dist = distance(worldXZ, ripplePos);
+
+
+			// Try different scales — this will help you see *something*
+			//return float4(saturate(dist / 10.0), 0, 0, 1); // Red = near 0, Black = far
+
+			float rippleRadius = rippleAge * _RippleSpeed;
+
+
+		
+			//return float4(dist.xxx, 1); // scale to visualize
+
+			// Soft falloff
+			float rippleBandWidth = 0.5; // Thickness of the ripple
+			float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
+				* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));
+
+			return float4(falloff,0,0, 1); // Grayscale visual
+
+			// UV to sample ripple texture
+			float2 rippleUV = (worldXZ - ripplePos) / (_RippleScale * rippleRadius) + 0.5;
+			float ripple = tex2D(_RippleTex, rippleUV).r * falloff;
+
+			float rippleStrength = 1; // Adjust to control how strong the ripple shows
+			//float4 rippleColour = float4(ripple * float3(0, 1, 0), ripple * rippleStrength);
+
+			float4 rippleColour = float4(1, 0, 0, 1);
 
 
 			// Retrieve the current depth value of the surface behind the
@@ -289,6 +344,14 @@ Shader "Custom/ToonWater"
 		float4 colourPass1 = alphaBlend(surfaceNoiseColor2, finalColor);
 
 		UNITY_APPLY_FOG(i.fogCoord, finalColor);
+
+		//return rippleColour;
+
+		float4 finalColorWRipple = alphaBlend(rippleColour, finalColor);
+
+		//finalColor.Albedo += ripple * float3(0, 1, 0);
+
+		return finalColorWRipple;
 		return finalColor;
 
 

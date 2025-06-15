@@ -21,6 +21,10 @@ public class BoatController : MonoBehaviour
 
     public Rigidbody rb;
 
+    [SerializeField] private BoatEffectsController boatEffects;
+
+    public bool boatEnabled = true;
+
     void Awake()
     {
         
@@ -44,6 +48,12 @@ public class BoatController : MonoBehaviour
 
     void HandleMovement()
     {
+
+        if (!boatEnabled)
+        {
+            return;
+        }
+
         float moveInput = Input.GetAxis("Vertical");   // W/S
         float turnInput = Input.GetAxis("Horizontal"); // A/D
 
@@ -56,6 +66,16 @@ public class BoatController : MonoBehaviour
 
         // Turning (torque on Y-axis)
         rb.AddTorque(Vector3.up * turnInput * turnTorque, ForceMode.Acceleration);
+
+        if (rb.linearVelocity.magnitude > 0)
+        {
+            ActivateBoatEffects();
+        }
+
+        if (rb.linearVelocity.magnitude <= .01f)
+        {
+            EndBoatEffects();
+        }
 
         HandleAngle();
     }
@@ -103,6 +123,27 @@ public class BoatController : MonoBehaviour
         prevVelocity = rb.linearVelocity;
 
     }
+
+    private void ActivateBoatEffects()
+    {
+        boatEffects.enabled = true;
+        boatEffects.StartWake();
+
+    }
+
+    private void EndBoatEffects()
+    {
+        if (!boatEffects.enabled)
+        {
+            return;
+        }
+
+        boatEffects.StopWake();
+        boatEffects.enabled = false;
+
+    }
+
+
 }
 
 

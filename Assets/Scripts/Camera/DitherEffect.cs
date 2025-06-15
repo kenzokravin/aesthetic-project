@@ -9,10 +9,10 @@ public class DitherEffect : MonoBehaviour
 
     public Texture2D thresholdMap;
     [Range(1, 8)] public int ditherSize = 4;
-    [Range(1, 100)] public int colNum = 4;
+    [Range(1, 2048)] public int colNum = 4;
 
     [Range(0, 2)] public float renderScale = .5f;
-    [Range(0, 100)] public float sharpScale = 1f;
+    [Range(0, 2)] public float sharpScale = 1f;
 
     [Range(0, 1)] public int isDithering = 0;
 

@@ -5180,7 +5180,7 @@ Transform:
   m_GameObject: {fileID: 306408136}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3412243, y: 0.61932707, z: -0.3412243, w: 0.61932707}
-  m_LocalPosition: {x: 265.9, y: 60.9, z: 508}
+  m_LocalPosition: {x: 294.5, y: 57.8, z: 508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5261,9 +5261,9 @@ MonoBehaviour:
   ditherShader: {fileID: 4800000, guid: 3565bac5bf1a40c40bbc3cfd63e9ab21, type: 3}
   thresholdMap: {fileID: 0}
   ditherSize: 4
-  colNum: 100
-  renderScale: 0.22
-  sharpScale: 0.1
+  colNum: 2048
+  renderScale: 1
+  sharpScale: 0.2
   isDithering: 0
 --- !u!1 &307136285
 GameObject:
@@ -5647,7 +5647,7 @@ Transform:
   m_GameObject: {fileID: 901707156}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3412243, y: 0.61932707, z: -0.3412243, w: 0.61932707}
-  m_LocalPosition: {x: 265.9, y: 60.9, z: 508}
+  m_LocalPosition: {x: 294.5, y: 57.8, z: 508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5940,7 +5940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  turnSpeed: 720
+  jumpForce: 5
+  canJump: 1
 --- !u!54 &994109596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5966,7 +5967,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &1039474336
 GameObject:
@@ -6135,7 +6136,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147662289397}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c609049e8eb4a24f9559cc57135cd5b, type: 3}
   m_Name: 
@@ -6452,7 +6453,7 @@ Transform:
   m_GameObject: {fileID: 919132147662289397}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 249.01361, y: 18, z: 150.49}
+  m_LocalPosition: {x: 266.8, y: 18, z: 442.1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -6489,6 +6490,7 @@ GameObject:
   - component: {fileID: 1136718359}
   - component: {fileID: 1136718358}
   - component: {fileID: 1136718357}
+  - component: {fileID: 919132147662289398}
   m_Layer: 0
   m_Name: boats_test
   m_TagString: Untagged
@@ -6496,6 +6498,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &919132147662289398
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147662289397}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 16
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.7242718
+  m_Height: 5.94
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.36863393, z: 0.29}
 --- !u!1001 &1632563107463026107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6504,6 +6529,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 653623113381168184, guid: e2139dcc25bf5784f815539686b4417c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 973331324317234140, guid: e2139dcc25bf5784f815539686b4417c, type: 3}
       propertyPath: reflectionCamera
       value: 

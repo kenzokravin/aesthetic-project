@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class CharMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class CharacterMover : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float turnSpeed = 720f; // degrees per second
+    public float jumpForce = 5f;
+    public bool canJump = true;
 
     private Rigidbody rb;
-    private Vector3 inputDirection;
+    private bool isGrounded;
 
     void Awake()
     {
@@ -15,25 +17,37 @@ public class CharMovement : MonoBehaviour
 
     void Update()
     {
-        // Get input
-        float h = Input.GetAxis("Horizontal"); // A/D or Left/Right
-        float v = Input.GetAxis("Vertical");   // W/S or Up/Down
+        // Movement input
+        float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
+        float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
 
-        // Direction relative to camera (optional)
-        inputDirection = new Vector3(h, 0, v).normalized;
+        Vector3 move = new Vector3(moveX, 0, moveZ) * moveSpeed;
+        Vector3 velocity = rb.linearVelocity;
+        rb.linearVelocity = new Vector3(move.x, velocity.y, move.z);
+
+        // Jump input
+        if (canJump && isGrounded && Input.GetButtonDown("Jump"))
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
-    void FixedUpdate()
+    void OnCollisionStay(Collision collision)
     {
-        if (inputDirection.magnitude >= 0.1f)
+        // Very simple ground check
+        foreach (ContactPoint contact in collision.contacts)
         {
-            // Move
-            Vector3 move = inputDirection * moveSpeed;
-            rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
-
-            // Face movement direction
-            Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
-            rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime));
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5f)
+            {
+                isGrounded = true;
+                return;
+            }
         }
+        isGrounded = false;
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
     }
 }

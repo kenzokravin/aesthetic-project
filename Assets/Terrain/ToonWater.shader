@@ -236,16 +236,16 @@ Shader "Custom/ToonWater"
 			float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
 				* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));
 
-			return float4(falloff,0,0, 1); // Grayscale visual
+			
 
 			// UV to sample ripple texture
 			float2 rippleUV = (worldXZ - ripplePos) / (_RippleScale * rippleRadius) + 0.5;
 			float ripple = tex2D(_RippleTex, rippleUV).r * falloff;
 
 			float rippleStrength = 1; // Adjust to control how strong the ripple shows
-			//float4 rippleColour = float4(ripple * float3(0, 1, 0), ripple * rippleStrength);
+			float4 rippleColour = float4(ripple * float3(0, 1, 0), ripple * rippleStrength);
 
-			float4 rippleColour = float4(1, 0, 0, 1);
+			//float4 rippleColour = float4(1, 0, 0, 1);
 
 
 			// Retrieve the current depth value of the surface behind the

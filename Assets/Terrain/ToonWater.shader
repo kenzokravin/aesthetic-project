@@ -238,13 +238,19 @@ Shader "Custom/ToonWater"
 				//return float4(saturate(dist / 10.0), 0, 0, 1); // Red = near 0, Black = far
 
 				float rippleRadius = rippleAge * _RippleSpeed;
+				float fade = 1.0 - saturate(rippleAge / _RippleLifetime);
 
 				//return float4(dist.xxx, 1); // scale to visualize
 
 				// Soft falloff
-				float rippleBandWidth = 1; // Thickness of the ripple
-				float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
-					* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));
+				//float rippleBandWidth = 2; // Thickness of the ripple
+				float rippleBandWidth = lerp(.01, 1.5, fade);
+
+				/*float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
+					* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));*/
+
+				float falloff = step(rippleRadius - rippleBandWidth, dist)
+					* (1.0 - step(rippleRadius + rippleBandWidth, dist));
 
 				//float falloff = smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist);
 
@@ -254,7 +260,7 @@ Shader "Custom/ToonWater"
 				float2 rippleUV = (worldXZ - ripplePos) / (_RippleScale * rippleRadius) + 0.5;
 				float rippleTex = tex2D(_RippleTex, rippleUV).r * falloff;
 
-				float fade = 1.0 - saturate(rippleAge / _RippleLifetime);
+				
 				float rippleStrength = 1.0; // Adjust to control how strong the ripple shows
 				float ripple = rippleTex * falloff * fade;
 

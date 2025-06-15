@@ -95,7 +95,13 @@ public class BoatRipple : MonoBehaviour
                 rippleActives[i] = 0; // Mark as inactive if older than lifetime.
             }
 
-            rippleOrigins[i] = gameObject.transform.position;
+            Vector4 retVec = gameObject.transform.position;
+
+            retVec.x = retVec.x + GetRandomOffset();
+            retVec.y = retVec.y + GetRandomOffset();
+            retVec.z = retVec.z + GetRandomOffset();
+
+            rippleOrigins[i] = retVec;
             rippleStartTimes[i] = Time.time;
             rippleActives[i] = 1;
 
@@ -110,7 +116,17 @@ public class BoatRipple : MonoBehaviour
         }
     }
 
-    
+    private float GetRandomOffset()
+    {
+        float offset = 0;
+
+
+        offset = Random.Range(-1f, 1f);
+
+
+        return offset;
+
+    }
 
 
 }

@@ -45,10 +45,11 @@ Shader "Custom/ToonWater"
 		_ReflectionStrength("Reflection Strength", Range(0, 1)) = 0.5
 
 		_RippleTex("Ripple Texture", 2D) = "black" {}
-		_RippleSpeed("Ripple Speed", Float) = 0.5
+		_RippleSpeed("Ripple Speed", Float) = 2
 		_RippleScale("Ripple Scale", Float) = 0.1
 		_RippleOrigin("Ripple Origin", Vector) = (0,0,0,0)
 		_RippleStartTime("Ripple Start Time", Float) = 0.0
+		_RippleLifetime("Ripple Lifetime", Float) = 2
 
 
 		
@@ -69,6 +70,8 @@ Shader "Custom/ToonWater"
 
 			CGPROGRAM
 			#define SMOOTHSTEP_AA 0.01
+
+			#define MAX_RIPPLES 10
 
 			#pragma vertex vert
 			#pragma fragment frag
@@ -108,11 +111,17 @@ Shader "Custom/ToonWater"
 			UNITY_FOG_COORDS(4) //Using TEXCOORD4 as it is available.
 		};
 
+		float4 _RippleOrigins[MAX_RIPPLES]; // x,z used
+		float _RippleStartTimes[MAX_RIPPLES];
+		float _RippleActives[MAX_RIPPLES]; // 1 = active, 0 = inactive
+
 		sampler2D _RippleTex;
 		float4 _RippleOrigin; //xyz position.
 		float _RippleStartTime;
 		float _RippleSpeed;
 		float _RippleScale;
+		float _RippleLifetime;
+
 
 		sampler2D _ReflectionTex;
 		float4x4 _MainCameraVP;
@@ -208,44 +217,91 @@ Shader "Custom/ToonWater"
 		float4 frag(v2f i) : SV_Target
 		{
 
-			float rippleAge = _Time.y - _RippleStartTime;
+			float4 rippleColour = float4(0, 0, 0, 0);
 
-			if (rippleAge > 1) {
-				//return float4(1,0,0, 1);
+			for (int z = 0; z < MAX_RIPPLES; z++)
+			{
+
+				if (_RippleActives[z] < 0.5) continue;
+
+				float rippleAge = _Time.y - _RippleStartTimes[z];
+
+				float2 worldXZ = i.worldPos.xz;
+				//float2 ripplePos = _RippleOrigin.xz;
+
+				float2 ripplePos = _RippleOrigins[z].xz;
+
+				float dist = distance(worldXZ, ripplePos);
+
+
+				// Try different scales — this will help you see *something*
+				//return float4(saturate(dist / 10.0), 0, 0, 1); // Red = near 0, Black = far
+
+				float rippleRadius = rippleAge * _RippleSpeed;
+
+				//return float4(dist.xxx, 1); // scale to visualize
+
+				// Soft falloff
+				float rippleBandWidth = 1; // Thickness of the ripple
+				float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
+					* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));
+
+				//float falloff = smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist);
+
+
+
+				// UV to sample ripple texture
+				float2 rippleUV = (worldXZ - ripplePos) / (_RippleScale * rippleRadius) + 0.5;
+				float rippleTex = tex2D(_RippleTex, rippleUV).r * falloff;
+
+				float fade = 1.0 - saturate(rippleAge / _RippleLifetime);
+				float rippleStrength = 1.0; // Adjust to control how strong the ripple shows
+				float ripple = rippleTex * falloff * fade;
+
+				if (fade <= 0.001) {
+
+					//_RippleActives[z] = 0;
+
+					continue;
+				}
+
+
+				rippleColour += float4(ripple, ripple, ripple, ripple * rippleStrength);
+
+
+
+
 			}
 
-			float2 worldXZ = i.worldPos.xz;
-			//float2 ripplePos = _RippleOrigin.xz;
+			//float rippleAge = _Time.y - _RippleStartTime;
 
-			float2 ripplePos = float2(0, 0);
+			//if (rippleAge > 1) {
+			//	//return float4(1,0,0, 1);
+			//}
 
-			float dist = distance(worldXZ, ripplePos);
+			//float2 worldXZ = i.worldPos.xz;
 
+			//float2 ripplePos = float2(0, 0);
 
-			// Try different scales — this will help you see *something*
-			//return float4(saturate(dist / 10.0), 0, 0, 1); // Red = near 0, Black = far
+			//float dist = distance(worldXZ, ripplePos);
 
-			float rippleRadius = rippleAge * _RippleSpeed;
+			//float rippleRadius = rippleAge * _RippleSpeed;
 
+			//// Soft falloff
+			//float rippleBandWidth = 1; // Thickness of the ripple
+			//float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
+			//	* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));
+			//
 
-		
-			//return float4(dist.xxx, 1); // scale to visualize
+			//// UV to sample ripple texture
+			//float2 rippleUV = (worldXZ - ripplePos) / (_RippleScale * rippleRadius) + 0.5;
+			//float rippleTex = tex2D(_RippleTex, rippleUV).r * falloff;
 
-			// Soft falloff
-			float rippleBandWidth = 0.5; // Thickness of the ripple
-			float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
-				* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));
+			//float fade = 1.0 - saturate(rippleAge / _RippleLifetime);
+			//float rippleStrength = 1.0; // Adjust to control how strong the ripple shows
+			//float ripple = rippleTex * falloff * fade;
+			//float4 rippleColour = float4(ripple, ripple, ripple, ripple * rippleStrength);
 
-			
-
-			// UV to sample ripple texture
-			float2 rippleUV = (worldXZ - ripplePos) / (_RippleScale * rippleRadius) + 0.5;
-			float ripple = tex2D(_RippleTex, rippleUV).r * falloff;
-
-			float rippleStrength = 1; // Adjust to control how strong the ripple shows
-			float4 rippleColour = float4(ripple * float3(0, 1, 0), ripple * rippleStrength);
-
-			//float4 rippleColour = float4(1, 0, 0, 1);
 
 
 			// Retrieve the current depth value of the surface behind the

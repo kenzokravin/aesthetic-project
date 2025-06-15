@@ -244,15 +244,15 @@ Shader "Custom/ToonWater"
 
 				// Soft falloff
 				//float rippleBandWidth = 2; // Thickness of the ripple
-				float rippleBandWidth = lerp(.01, 1.5, fade);
+				float rippleBandWidth = lerp(.01, 1.5, fade); //The larger value can be used for full circle foam.
+
 
 				/*float falloff = smoothstep(rippleRadius - rippleBandWidth, rippleRadius, dist)
 					* (1.0 - smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist));*/
 
 				float falloff = step(rippleRadius - rippleBandWidth, dist)
-					* (1.0 - step(rippleRadius + rippleBandWidth, dist));
+					* (1.0 - step(rippleRadius + rippleBandWidth, dist)); //The step func creates hard lines.
 
-				//float falloff = smoothstep(rippleRadius, rippleRadius + rippleBandWidth, dist);
 
 
 

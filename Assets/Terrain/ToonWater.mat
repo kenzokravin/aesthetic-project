@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RippleTex:
+        m_Texture: {fileID: 2800000, guid: 0b70a12ea10b71b4199bfa1332ced188, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SurfaceDistortion:
         m_Texture: {fileID: 2800000, guid: 96560a54ca8cdf54f823827af0bcaab0, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -41,6 +45,10 @@ Material:
     - _FoamMaxDistance: 0.93
     - _FoamMinDistance: 7.8
     - _ReflectionStrength: 0
+    - _RippleLifetime: 1
+    - _RippleScale: 0.61
+    - _RippleSpeed: 7
+    - _RippleStartTime: 0
     - _SurfaceDistortionAmount: 0.22
     - _SurfaceNoiseCutoff: 0.542
     - _WaveAmp: 0.0025
@@ -51,6 +59,7 @@ Material:
     - _Direction: {r: 1, g: 0, b: 0, a: 0}
     - _FoamColor: {r: 0.9009434, g: 1, b: 0.98175275, a: 1}
     - _FoamColor2: {r: 0.18396229, g: 1, b: 0.63538736, a: 1}
+    - _RippleOrigin: {r: 297.1649, g: -0.34505287, b: 466.38998, a: 0}
     - _SurfaceNoiseScroll: {r: 0.02, g: 0.02, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

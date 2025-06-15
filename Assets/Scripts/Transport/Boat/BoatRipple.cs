@@ -7,7 +7,8 @@ public class BoatRipple : MonoBehaviour
     [SerializeField] private Material waterMat;
 
     const int MAX_RIPPLES = 10;
-    private float rippleLifetime = 3f;
+    
+    private float RIPPLE_LIFETIME = 1.0f;
 
     Vector4[] rippleOrigins = new Vector4[MAX_RIPPLES];
     float[] rippleStartTimes = new float[MAX_RIPPLES];
@@ -20,49 +21,16 @@ public class BoatRipple : MonoBehaviour
     void Start()
     {
 
-        /*      waterMat.SetVector("_RippleOrigin", gameObject.transform.position);
-              waterMat.SetFloat("_RippleStartTime", Time.time);
-      */
-        rippleOrigins[0] = new Vector4(0, 0, 0, 0);
-        rippleStartTimes[0] = Time.time;
-        rippleActives[0] = 1;
+       waterMat.SetFloat("_RippleLifetime",RIPPLE_LIFETIME);
+           //   waterMat.SetFloat("_RippleStartTime", Time.time);
+     
 
-        rippleOrigins[1] = new Vector4(2, 0, 2, 0);
-        rippleStartTimes[1] = Time.time + 0.02f;
-        rippleActives[1] = 1;
-
-        rippleOrigins[2] = new Vector4(4, 0, 2, 0);
-        rippleStartTimes[2] = Time.time + 0.4f;
-        rippleActives[2] = 1;
-
-        rippleOrigins[3] = new Vector4(3, 0, 3, 0);
-        rippleStartTimes[3] = Time.time + 0.2f;
-        rippleActives[3] = 1;
-
-        rippleOrigins[4] = new Vector4(-1, 0, 2, 0);
-        rippleStartTimes[4] = Time.time + 3f;
-        rippleActives[4] = 1;
-
-        rippleOrigins[5] = new Vector4(-3, 0, 2, 0);
-        rippleStartTimes[5] = Time.time + 1.0f;
-        rippleActives[5] = 1;
-
-        rippleOrigins[6] = new Vector4(-1, 0, 23, 0);
-        rippleStartTimes[6] = Time.time + 1.0f;
-        rippleActives[6] = 1;
-
-        rippleOrigins[7] = new Vector4(-2, 0, 10, 0);
-        rippleStartTimes[7] = Time.time + 2.0f;
-        rippleActives[7] = 1;
-
-        rippleOrigins[8] = new Vector4(-3, 0, 5, 0);
-        rippleStartTimes[8] = Time.time + 1.3f;
-        rippleActives[8] = 1;
-
-        rippleOrigins[9] = new Vector4(-1, 0, 2, 0);
-        rippleStartTimes[9] = Time.time + 1.4f;
-        rippleActives[9] = 1;
-
+        for(int i = 0; i < MAX_RIPPLES; i++)
+        {
+            rippleOrigins[i] = new Vector4(0, 0, 0, 0);
+            rippleStartTimes[i] = Time.time + i*RIPPLE_LIFETIME/MAX_RIPPLES;
+            rippleActives[i] = 1;
+        }
 
 
         PushToShader();
@@ -117,17 +85,17 @@ public class BoatRipple : MonoBehaviour
             // Check ripple age
             float age = currentTime - rippleStartTimes[i];
 
-            if (age < rippleLifetime)
+            if (age < RIPPLE_LIFETIME) //If ripple is younger than lifetime, skip.
             {
                 continue;
             }
 
-            if (age >= rippleLifetime)
+            if (age >= RIPPLE_LIFETIME)
             {
-                rippleActives[i] = 0; // Mark as inactive
+                rippleActives[i] = 0; // Mark as inactive if older than lifetime.
             }
 
-            rippleOrigins[i] = new Vector4(0, 0, 0, 0);
+            rippleOrigins[i] = gameObject.transform.position;
             rippleStartTimes[i] = Time.time;
             rippleActives[i] = 1;
 
@@ -142,16 +110,7 @@ public class BoatRipple : MonoBehaviour
         }
     }
 
-    private void UpdateRipples()
-    {
+    
 
-        for (int i = 0; i < MAX_RIPPLES; i++)
-        {
-            // Skip inactive ripples
-            if (rippleActives[i] == 0)
-                continue;
-            }
 
-        }
-
-    }
+}

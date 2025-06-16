@@ -54,17 +54,17 @@ Material:
     - _RippleLifetime: 2
     - _RippleScale: 0.1
     - _RippleSpeed: 2
-    - _SurfaceDistortionAmount: 0.27
+    - _SurfaceDistortionAmount: 0
     - _SurfaceNoiseCutoff: 0.777
-    - _WaveAmp: 0.27
-    - _WaveFreq: 0.27
+    - _WaveAmp: 0.0015
+    - _WaveFreq: 0.04
     m_Colors:
     - _DepthGradientDeep: {r: 0.08599999, g: 0.40699998, b: 1, a: 0.749}
     - _DepthGradientShallow: {r: 0.32499996, g: 0.807, b: 0.971, a: 0.725}
     - _Direction: {r: 1, g: 0, b: 0, a: 0}
-    - _EdgeFoamColour: {r: 1, g: 1, b: 1, a: 1}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FoamColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeFoamColour: {r: 1, g: 0.08962262, b: 0.08962262, a: 1}
+    - _FoamColor: {r: 0.28005514, g: 0.2688679, b: 1, a: 1}
+    - _FoamColor2: {r: 1, g: 0.0141509175, b: 0.0141509175, a: 1}
     - _SurfaceNoiseScroll: {r: 0.03, g: 0.03, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

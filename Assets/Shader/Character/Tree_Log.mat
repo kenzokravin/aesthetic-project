@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WaterArchMat
-  m_Shader: {fileID: 4800000, guid: 9fb8cac888d302e4f8fb6a137a29f08a, type: 3}
+  m_Name: Tree_Log
+  m_Shader: {fileID: 4800000, guid: 935232eb08c19ad4a914fe9f20c68881, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,13 +22,18 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Height: 1
-    - _Radius: 3
-    - _Segments: 10
+    - _Glossiness: 0.5
+    - _LightRamp: 0.5
+    - _Metallic: 0
+    - _ShadowStrength: 0.7
     m_Colors:
-    - _Color: {r: 0.39999998, g: 0.8, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

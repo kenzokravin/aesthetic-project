@@ -286,7 +286,8 @@ Shader "Custom/ToonWater"
 
 			}
 
-
+			float2 screenUV3 = i.screenPosition.xy / i.screenPosition.w;
+			screenUV3= saturate(screenUV3);
 
 			// Retrieve the current depth value of the surface behind the
 			// pixel we are currently rendering.
@@ -300,13 +301,19 @@ Shader "Custom/ToonWater"
 
 		// Calculate the color of the water based on the depth using our two gradient colors.
 		float waterDepthDifference01 = saturate(depthDifference / _DepthMaxDistance);
+
+		float2 grad = float2(ddx(depthDifference), ddy(depthDifference));
+		float2 foamDir = normalize(grad); // points outward from terrain
+
+		float2 curvedUV = screenUV3 + foamDir * 0.05;
+
 		float4 waterColor = lerp(_DepthGradientShallow, _DepthGradientDeep, waterDepthDifference01);
 
 		float edgeFoamAmount = saturate(1.0 - abs(depthDifference) * 0.5);
 
 		float foamMask = step(_EdgeFoamThresh, edgeFoamAmount); // _FoamCutoff = e.g., 0.05
 		edgeFoamAmount *= foamMask;
-		float edgeFoam = edgeFoamAmount * sin(_Time.y * 0.5 + i.screenPosition.x * 10.0) * .5 + .5;
+		float edgeFoam = edgeFoamAmount * sin(_Time.y * 3 + +dot(screenUV3, foamDir) * 10.0) * .5 + .5;
 
 		//return float4(edgeFoamAmount.xxx, 1);
 

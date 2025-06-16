@@ -42,6 +42,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _DepthMaxDistance: 14.2
+    - _EdgeFoamThresh: 3.15
+    - _FoamCutoff: 0.51
     - _FoamMaxDistance: 0.93
     - _FoamMinDistance: 7.8
     - _ReflectionStrength: 0
@@ -54,10 +56,11 @@ Material:
     - _WaveAmp: 0.0025
     - _WaveFreq: 80
     m_Colors:
-    - _DepthGradientDeep: {r: 0.06007476, g: 0.4716981, b: 0.44926155, a: 1}
-    - _DepthGradientShallow: {r: 0.43137252, g: 0.9607843, b: 0.8061469, a: 0.725}
+    - _DepthGradientDeep: {r: 0.26664296, g: 0.47366405, b: 0.5283019, a: 1}
+    - _DepthGradientShallow: {r: 0.5304824, g: 0.8584906, b: 0.8138201, a: 0.725}
     - _Direction: {r: 1, g: 0, b: 0, a: 0}
-    - _FoamColor: {r: 0.9009434, g: 1, b: 0.98175275, a: 1}
+    - _EdgeFoamColour: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamColor: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
     - _FoamColor2: {r: 0.18396229, g: 1, b: 0.63538736, a: 1}
     - _RippleOrigin: {r: 297.1649, g: -0.34505287, b: 466.38998, a: 0}
     - _SurfaceNoiseScroll: {r: 0.02, g: 0.02, b: 0, a: 0}

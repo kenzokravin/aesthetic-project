@@ -51,20 +51,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Distance: 27.14
-    - _FoamCutoff: 0.53
+    - _DepthCutoff: 1.2
+    - _Distance: 12.8
+    - _FoamCutoff: 11.5
     - _FoamDensity: 75.8
     - _FoamIslandSpeed: 1
     - _FoamSpeed: 2
     - _FoamTotal: 0.34
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ScaleFoam: 159
     - _WaveHeightMax: 0.32
     - _WaveHeightMin: 0
     - _WaveScale: 0.13
     - _WaveSpeed: 0.23
     m_Colors:
     - _BaseColour: {r: 0.36320743, g: 0.75060457, b: 1, a: 1}
+    - _DepthDarkColour: {r: 0.08410467, g: 0.24466902, b: 0.3962264, a: 0}
     - _FoamColour: {r: 1, g: 1, b: 1, a: 1}
     - _FoamDepth: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

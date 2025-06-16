@@ -72,7 +72,7 @@ Shader "Custom/URPToonWater"
                 float3 worldNormal : TEXCOORD1;
                 float3 worldPos : TEXCOORD2;
                 float4 screenPos : TEXCOORD3;
-                UNITY_FOG_COORDS(4)
+               // UNITY_FOG_COORDS(4)
             };
 
             CBUFFER_START(UnityPerMaterial)
@@ -120,14 +120,15 @@ Shader "Custom/URPToonWater"
                 float disp = waveLength * (dot(dir, v.positionOS.xyz) - (phase * _Time.y));
                 v.positionOS.y += _WaveAmp * sin(disp);
 
-                float4 worldPos = TransformObjectToWorld(v.positionOS.xyz);
-                o.worldPos = worldPos.xyz;
+                float3 worldPos = TransformObjectToWorld(v.positionOS.xyz);
+
+                o.worldPos = worldPos;
                 o.worldNormal = normalize(TransformObjectToWorldNormal(v.normalOS));
-                o.positionHCS = TransformWorldToHClip(worldPos.xyz);
+                o.positionHCS = TransformWorldToHClip(worldPos);
                 o.screenPos = ComputeScreenPos(o.positionHCS);
                 o.uv = v.uv;
 
-                UNITY_TRANSFER_FOG(o, o.positionHCS);
+              //  UNITY_TRANSFER_FOG(o, o.positionHCS);
                 return o;
             }
 
@@ -158,7 +159,8 @@ Shader "Custom/URPToonWater"
 
                 float4 finalCol = foamCol + surfaceCol * (1.0 - foamCol.a);
 
-                UNITY_APPLY_FOG(i.fogCoord, finalCol);
+               // UNITY_APPLY_FOG(i.fogCoord, finalCol);
+               // return (0, 0, 1, 1);
                 return finalCol;
             }
 

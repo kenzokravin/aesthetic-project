@@ -51,7 +51,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DepthCutoff: 1.2
+    - _DepthCutoff: 2.75
+    - _DepthWobbleScale: 50
+    - _DepthWobbleSpeed: 0.05
     - _Distance: 12.8
     - _FoamCutoff: 11.5
     - _FoamDensity: 75.8

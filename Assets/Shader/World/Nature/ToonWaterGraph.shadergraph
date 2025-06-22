@@ -115,9 +115,6 @@
             "m_Id": "30681b23c82e4922b988c0ad4f0c7357"
         },
         {
-            "m_Id": "9f3d799cc144417cb3bbcdd25059b3dd"
-        },
-        {
             "m_Id": "5cd06a40df5145e6b53e2f17de6df0fe"
         },
         {
@@ -536,6 +533,9 @@
         },
         {
             "m_Id": "d2d5e9c31b644ea689d153356042b32f"
+        },
+        {
+            "m_Id": "d0419e979c5b4ebb96bdaa5ee46c7d94"
         }
     ],
     "m_GroupDatas": [
@@ -2674,7 +2674,7 @@
                 "m_Id": "30681b23c82e4922b988c0ad4f0c7357"
             },
             {
-                "m_Id": "9f3d799cc144417cb3bbcdd25059b3dd"
+                "m_Id": "d0419e979c5b4ebb96bdaa5ee46c7d94"
             }
         ]
     },
@@ -5132,8 +5132,8 @@
     "m_ObjectId": "2661e7fc103f4f189f1c57781158b996",
     "m_Title": "Depth To World Position",
     "m_Position": {
-        "x": -4937.00048828125,
-        "y": -3934.000244140625
+        "x": -4937.0,
+        "y": -3933.999755859375
     }
 }
 
@@ -7202,8 +7202,8 @@
     "m_ObjectId": "4aae2f9975be46f2b79c22b2e6291eee",
     "m_Title": "DepthVoronoi",
     "m_Position": {
-        "x": -3834.000244140625,
-        "y": -2732.000244140625
+        "x": -3833.999755859375,
+        "y": -2731.999755859375
     }
 }
 
@@ -8099,21 +8099,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "592dcc9d480e45b7b3e2a5f20597e849",
-    "m_Id": 0,
-    "m_DisplayName": "Alpha",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Alpha",
-    "m_StageCapability": 2,
-    "m_Value": 1.0,
-    "m_DefaultValue": 1.0,
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "5936ea4cb21943288a6450c15249f18e",
     "m_Id": 2,
@@ -8818,8 +8803,8 @@
     "m_ObjectId": "65c1bc9426a84df9884f717308fe831b",
     "m_Title": "Wave Height",
     "m_Position": {
-        "x": 1113.0001220703125,
-        "y": -4607.00048828125
+        "x": 1113.0,
+        "y": -4606.99951171875
     }
 }
 
@@ -9265,6 +9250,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "6e8a6dc6035b4434a45185a6f499e67e",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Alpha",
+    "m_StageCapability": 2,
+    "m_Value": 1.0,
+    "m_DefaultValue": 1.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.ClampNode",
     "m_ObjectId": "6eb9419f610b48c19a6a86d2af05cbc9",
     "m_Group": {
@@ -9454,8 +9454,8 @@
     "m_ObjectId": "728b14033ff04c9fa9029db780f9d783",
     "m_Title": "Underwater Refraction",
     "m_Position": {
-        "x": -3062.000244140625,
-        "y": -4276.0
+        "x": -3062.0,
+        "y": -4275.99951171875
     }
 }
 
@@ -11386,8 +11386,8 @@
     "m_ObjectId": "8f77bce3373240f3807f65717ccfa46c",
     "m_Title": "WaterSurfaceEffects",
     "m_Position": {
-        "x": -2586.000244140625,
-        "y": -955.0001220703125
+        "x": -2586.0,
+        "y": -954.999755859375
     }
 }
 
@@ -12770,40 +12770,6 @@
         "z": 0.0,
         "w": 0.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "9f3d799cc144417cb3bbcdd25059b3dd",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.Alpha",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "592dcc9d480e45b7b3e2a5f20597e849"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.Alpha"
 }
 
 {
@@ -15608,6 +15574,40 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "d0419e979c5b4ebb96bdaa5ee46c7d94",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.Alpha",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "6e8a6dc6035b4434a45185a6f499e67e"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.Alpha"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "d0b34ec7f3aa4400804fc2e84727c6d8",
     "m_Id": 4,
@@ -17194,7 +17194,7 @@
     "m_ObjectId": "e72bc9f2bf72489883d3c839ba86e29f",
     "m_Title": "WaterSurfaceEffects",
     "m_Position": {
-        "x": 1232.000244140625,
+        "x": 1232.0,
         "y": -59.0
     }
 }

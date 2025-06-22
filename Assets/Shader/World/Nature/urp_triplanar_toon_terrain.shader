@@ -47,6 +47,7 @@ Shader "Custom/URP/TriplanarToonTerrain"
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _ADDITIONAL_LIGHTS
             #pragma multi_compile _ _SHADOWS_SOFT
+            
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -115,6 +116,44 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 return mul(rot, uv - 0.5) + 0.5;
             }
 
+            void GetLight_float(float3 WorldPos, out float3 Direction, out float3 Color, out float Attenuation)
+            {
+
+                float4  shadowCoord = TransformWorldToShadowCoord(WorldPos);
+                Light mainLight = GetMainLight(shadowCoord);
+                Direction = mainLight.direction;
+                Color = mainLight.color;
+                Attenuation = mainLight.shadowAttenuation;
+
+
+            }
+
+            struct SurfaceOutput {
+                float3 Albedo;
+                float3 Normal;
+            };
+
+            inline half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten, half3 lightColor)
+            {
+                half NdotL = dot(s.Normal, lightDir);
+
+                // Toon band for diffuse
+                half diff = step(0.5, NdotL);
+
+                // Simulated self-shadow: lower light when surface faces away from light
+                half fakeSelfShadow = lerp(_ShadowStrength, 1.0, diff);
+
+                // Real-time shadow from other objects
+                half shadowStep = step(0.5, atten);
+                half realShadow = lerp(_ShadowStrength, 1.0, shadowStep);
+
+                // Combine both
+                half lightingFactor = fakeSelfShadow * realShadow;
+
+                half3 col = s.Albedo * lightColor * (lightingFactor * _LightRamp);
+                return half4(col, 1.0);
+            }
+
             float3 Triplanar(Texture2D tex, float3 worldPos, float3 normal, SamplerState samp)
             {
                 float3 blend = pow(abs(normal), _TextureStep);
@@ -127,11 +166,20 @@ Shader "Custom/URP/TriplanarToonTerrain"
 
             half4 frag(Varyings IN) : SV_Target
             {
-                float3 normal = normalize(IN.worldNormal);
+                
+               
+                float3 normal = normalize(IN.worldNormal); //Getting normal of pixel.
+              
+
+                //float3 finalColor2 = lighting * lightColor; // your albedo would multiply in here too
+
+                //return float4(finalColor2, 1.0);
+
+
                 float3 blends = abs(normal);
 
-                float topRaw = pow(blends.y, _TextureStep);
-                float sideRaw = pow(blends.x + blends.z, _TextureStep);
+                float topRaw = step(blends.y, 1);
+                float sideRaw = pow(blends.x + blends.z, 1000);
                 float total = topRaw + sideRaw + 1e-5;
                 float topBlend = topRaw / total;
                 float sideBlend = sideRaw / total;
@@ -179,19 +227,109 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 float3 splatColor = baseColor * r + splat1 * g + splat2 * b + splat3 * a;
                 float3 finalColor = lerp(baseColor, splatColor, saturate(control.r + control.g + control.b + control.a));
 
-                Light mainLight = GetMainLight(IN.shadowCoord);
+               /* Light mainLight = GetMainLight(IN.shadowCoord);
                 float NdotL = saturate(dot(normal, mainLight.direction));
                 float diff = step(0.5, NdotL);
                 float fakeShadow = lerp(_ShadowStrength, 1.0, diff);
                 float realShadow = lerp(_ShadowStrength, 1.0, mainLight.shadowAttenuation);
                 float lighting = fakeShadow * realShadow * _LightRamp;
 
-                float3 litColor = finalColor * mainLight.color.rgb * lighting * _Color.rgb;
+                float3 litColor = finalColor * mainLight.color.rgb * lighting * _Color.rgb;*/
+
+                float3 lightDir, lightColor;
+                float attenuation;
+
+                // Get main directional light
+                GetLight_float(IN.worldPos, lightDir, lightColor, attenuation);
+
+                float NdotL = saturate(dot(normal, lightDir));
+                float lighting = step(0.5,NdotL) * attenuation;
+
+                float3 protoCol = lighting * finalColor;
+
+                return float4(protoCol, 1.0);
+
+
+
+
+                Light mainLight = GetMainLight(IN.shadowCoord);
+
+       
+                SurfaceOutput s;
+                s.Albedo = finalColor;
+                s.Normal = normal;
+
+                float3 viewDir = normalize(_WorldSpaceCameraPos - IN.worldPos);
+
+                float4 litResult = LightingToonRamp(s, mainLight.direction, viewDir, mainLight.shadowAttenuation, mainLight.color);
+                float3 litColor = litResult.rgb * _Color.rgb;
+
+
+                
+
                 return float4(litColor, 1.0);
             }
+
+        /*        struct SurfaceOutput {
+                float3 Albedo;
+                float3 Normal; };*/
+
+/*
+            inline half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten, half3 lightColor)
+            {
+                half NdotL = dot(s.Normal, lightDir);
+
+                // Toon band for diffuse
+                half diff = step(0.5, NdotL);
+
+                // Simulated self-shadow: lower light when surface faces away from light
+                half fakeSelfShadow = lerp(_ShadowStrength, 1.0, diff);
+
+                // Real-time shadow from other objects
+                half shadowStep = step(0.5, atten);
+                half realShadow = lerp(_ShadowStrength, 1.0, shadowStep);
+
+                // Combine both
+                half lightingFactor = fakeSelfShadow * realShadow;
+
+                half3 col = s.Albedo * lightColor * (lightingFactor * _LightRamp);
+                return half4(col, 1.0);
+            }
+*/
+
+
+
             ENDHLSL
 
 
+        }
+
+        Pass
+        {
+            Name "ShadowCaster"
+            Tags{"LightMode" = "ShadowCaster"}
+
+            ZWrite On
+            ColorMask 0
+
+            HLSLPROGRAM
+            #pragma target 2.0
+
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+
+            #pragma multi_compile_instancing
+            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+
+            // -------------------------------------
+            // Universal Pipeline keywords
+
+            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitPasses.hlsl"
+            ENDHLSL
         }
 
         Pass

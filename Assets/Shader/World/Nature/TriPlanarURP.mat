@@ -65,16 +65,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _LightRamp: 1.17
+    - _LightRamp: 1
     - _NoiseScale: 0.5
     - _NoiseScaleTwo: 0.5
     - _RotationDegrees: 59.22
-    - _ShadowStrength: 0.7
+    - _ShadowStrength: 0.41
     - _SideScale: 0.09
-    - _TexturePaintStep: 9.7
+    - _TexturePaintStep: 9.36
     - _TexturePrimScale: 5.81
     - _TextureScale: 0.06
-    - _TextureStep: 80.1
+    - _TextureStep: 179.99
     - _UVDistortionStrength: 0.05
     - _UVDistortionStrengthTwo: 0.05
     m_Colors:

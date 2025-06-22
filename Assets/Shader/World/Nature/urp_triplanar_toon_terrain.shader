@@ -45,6 +45,7 @@ Shader "Custom/URP/TriplanarToonTerrain"
             #pragma fragment frag
             #pragma multi_compile_fog
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma multi_compile _ _ADDITIONAL_LIGHTS
             #pragma multi_compile _ _SHADOWS_SOFT
             
@@ -239,35 +240,23 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 float3 lightDir, lightColor;
                 float attenuation;
 
-                // Get main directional light
+                // Use your custom function to get the main directional light and its shadow attenuation
                 GetLight_float(IN.worldPos, lightDir, lightColor, attenuation);
 
-                float NdotL = saturate(dot(normal, lightDir));
-                float lighting = step(0.5,NdotL) * attenuation;
-
-                float3 protoCol = lighting * finalColor;
-
-                return float4(protoCol, 1.0);
-
-
-
-
-                Light mainLight = GetMainLight(IN.shadowCoord);
-
-       
                 SurfaceOutput s;
                 s.Albedo = finalColor;
                 s.Normal = normal;
 
                 float3 viewDir = normalize(_WorldSpaceCameraPos - IN.worldPos);
 
-                float4 litResult = LightingToonRamp(s, mainLight.direction, viewDir, mainLight.shadowAttenuation, mainLight.color);
+                // Use your toon lighting function which includes shadow attenuation
+                float4 litResult = LightingToonRamp(s, lightDir, viewDir, attenuation, lightColor);
+
+                // Final color tint
                 float3 litColor = litResult.rgb * _Color.rgb;
 
-
-                
-
                 return float4(litColor, 1.0);
+
             }
 
         /*        struct SurfaceOutput {

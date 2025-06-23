@@ -163,7 +163,7 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 blend /= dot(blend, 1.0);
                 float3 x = tex.Sample(samp, worldPos.zy).rgb;
                 float3 y = tex.Sample(samp, worldPos.xz).rgb;
-                float3 z = tex.Sample(samp, worldPos.xy).rgb;
+                float3 z = tex.Sample(samp, worldPos.xy).rgb;   
                 return x * blend.x + y * blend.y + z * blend.z;
             }
 

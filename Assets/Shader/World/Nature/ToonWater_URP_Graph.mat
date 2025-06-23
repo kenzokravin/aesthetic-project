@@ -67,18 +67,22 @@ Material:
     - _DepthWobbleScale: 13.05
     - _DepthWobbleSpeed: 0.24
     - _Distance: 13.26
-    - _FoamCutoff: 8.71
-    - _FoamDensity: 32.89
-    - _FoamIslandSpeed: 6.22
+    - _FoamCutoff: 8.52
+    - _FoamDensity: 18.11
+    - _FoamIslandSpeed: 6.7
     - _FoamSpeed: 1.57
     - _FoamTotal: 1.2
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ReflectWobbleGrScale: 3.28
+    - _ReflectWobbleMovement: 1.13
+    - _ReflectWobbleSpeed: 0.18
+    - _ReflectWobbleStr: -0.02
     - _ScaleFoam: 165.6
     - _ShallowColourStrength: 1.25
     - _SurfaceFoamEdgeType: 1
     - _SurfaceFoamOpacity: 1
-    - _SurfaceFoamPower: 208.76
+    - _SurfaceFoamPower: 35.25
     - _UnderVoroBlend: 13.41
     - _UnderVoroDensity: -0.59
     - _UnderVoroSpeed: 0.82

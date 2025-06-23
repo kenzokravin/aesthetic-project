@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.kink3d.mirrors": "file:C:/Users/angus/kMirrors-master/kMirrors-master",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.ide.rider": "3.0.31",

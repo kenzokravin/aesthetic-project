@@ -69,7 +69,7 @@ Material:
     - _NoiseScale: 0.5
     - _NoiseScaleTwo: 0.5
     - _RotationDegrees: 59.22
-    - _ShadowStrength: 0.41
+    - _ShadowStrength: 0.49
     - _SideScale: 0.09
     - _TexturePaintStep: 9.36
     - _TexturePrimScale: 5.81

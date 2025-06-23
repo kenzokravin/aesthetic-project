@@ -62,29 +62,32 @@ Material:
     - _DepthCutoff: 1.4
     - _DepthVoroOpacity: 1
     - _DepthVoronoiPower: 2.83
+    - _DepthVoronoiWobbleScale: 8.97
+    - _DepthVoronoiWobbleSpeed: 0.27
     - _DepthWobbleScale: 13.05
     - _DepthWobbleSpeed: 0.24
     - _Distance: 13.26
-    - _FoamCutoff: 6.19
-    - _FoamDensity: 50.1
+    - _FoamCutoff: 8.71
+    - _FoamDensity: 32.89
     - _FoamIslandSpeed: 6.22
-    - _FoamSpeed: 2
-    - _FoamTotal: 0.34
+    - _FoamSpeed: 1.57
+    - _FoamTotal: 1.2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScaleFoam: 159
+    - _ScaleFoam: 165.6
     - _ShallowColourStrength: 1.25
     - _SurfaceFoamEdgeType: 1
     - _SurfaceFoamOpacity: 1
     - _SurfaceFoamPower: 208.76
     - _UnderVoroBlend: 13.41
-    - _UnderVoroDensity: -0.5
+    - _UnderVoroDensity: -0.59
     - _UnderVoroSpeed: 0.82
     - _UnderVoroTile: 0.19
+    - _WaveHeightAmp: 0.25
     - _WaveHeightMax: 1
     - _WaveHeightMin: 0
-    - _WaveScale: 0.82
-    - _WaveSpeed: 0.25
+    - _WaveScale: 0.4
+    - _WaveSpeed: 0.4
     m_Colors:
     - _BaseColour: {r: 0, g: 0.07011509, b: 1, a: 1}
     - _DepthColour: {r: 0.15566036, g: 0.8445743, b: 1, a: 1}

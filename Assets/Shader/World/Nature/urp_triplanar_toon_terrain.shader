@@ -149,7 +149,9 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 half realShadow = lerp(_ShadowStrength, 1.0, shadowStep);
 
                 // Combine both
-                half lightingFactor = fakeSelfShadow * realShadow;
+                //half lightingFactor = fakeSelfShadow * realShadow;
+
+                half lightingFactor = realShadow; //This stops the double light rendering.
 
                 half3 col = s.Albedo * lightColor * (lightingFactor * _LightRamp);
                 return half4(col, 1.0);

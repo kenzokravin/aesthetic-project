@@ -7031,8 +7031,8 @@
     "m_ObjectId": "2661e7fc103f4f189f1c57781158b996",
     "m_Title": "Depth To World Position",
     "m_Position": {
-        "x": -4937.60009765625,
-        "y": -3934.400634765625
+        "x": -4937.0,
+        "y": -3934.0
     }
 }
 
@@ -9932,8 +9932,8 @@
     "m_ObjectId": "4aae2f9975be46f2b79c22b2e6291eee",
     "m_Title": "DepthVoronoi",
     "m_Position": {
-        "x": -3834.400634765625,
-        "y": -2732.7998046875
+        "x": -3834.0,
+        "y": -2732.0
     }
 }
 
@@ -11253,8 +11253,8 @@
     "m_ObjectId": "5bdf3bc0a3f94582bc6bf20c62844fc6",
     "m_Title": "Reflection",
     "m_Position": {
-        "x": 792.0001220703125,
-        "y": 1561.60009765625
+        "x": 793.0,
+        "y": 1563.0
     }
 }
 
@@ -12203,8 +12203,8 @@
     "m_ObjectId": "65c1bc9426a84df9884f717308fe831b",
     "m_Title": "Wave Height",
     "m_Position": {
-        "x": 1112.7999267578125,
-        "y": -4608.00146484375
+        "x": 1113.0,
+        "y": -4607.0
     }
 }
 
@@ -13247,8 +13247,8 @@
     "m_ObjectId": "728b14033ff04c9fa9029db780f9d783",
     "m_Title": "Underwater Refraction",
     "m_Position": {
-        "x": -2491.199951171875,
-        "y": -5106.39990234375
+        "x": -2491.0,
+        "y": -5105.0
     }
 }
 
@@ -15929,8 +15929,8 @@
     "m_ObjectId": "8f77bce3373240f3807f65717ccfa46c",
     "m_Title": "WaterSurfaceEffects",
     "m_Position": {
-        "x": -2586.400146484375,
-        "y": -956.0
+        "x": -2586.0,
+        "y": -955.0
     }
 }
 
@@ -23492,8 +23492,8 @@
     "m_ObjectId": "e72bc9f2bf72489883d3c839ba86e29f",
     "m_Title": "WaterSurfaceEffects",
     "m_Position": {
-        "x": 971.2000732421875,
-        "y": -60.0
+        "x": 972.0,
+        "y": -59.0
     }
 }
 

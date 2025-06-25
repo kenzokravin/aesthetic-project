@@ -89,11 +89,11 @@ Material:
     - _UnderVoroDensity: -0.59
     - _UnderVoroSpeed: 0.82
     - _UnderVoroTile: 0.19
-    - _WaveHeightAmp: 0.25
+    - _WaveHeightAmp: 2.44
     - _WaveHeightMax: 1
     - _WaveHeightMin: 0
-    - _WaveScale: 0.4
-    - _WaveSpeed: 0.4
+    - _WaveScale: 0.03
+    - _WaveSpeed: 3.4
     m_Colors:
     - _BaseColour: {r: 0, g: 0.03794145, b: 0.4188679, a: 1}
     - _DepthColour: {r: 0, g: 0.82959604, b: 1, a: 1}

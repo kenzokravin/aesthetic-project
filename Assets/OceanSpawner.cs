@@ -15,7 +15,12 @@ public class OceanSpawner : MonoBehaviour
 
     void Start()
     {
+
+
         GenerateOcean();
+       //Shader.SetGlobalVector("_WaveFalloffCentre", player.transform.position);
+
+
     }
 
     void LateUpdate()
@@ -23,6 +28,8 @@ public class OceanSpawner : MonoBehaviour
         if (player && oceanParent)
         {
             oceanParent.position = new Vector3(player.position.x, oceanHeight, player.position.z);
+            
+          //  Shader.SetGlobalVector("_WaveFalloffCentre", player.transform.position);
         }
     }
 

@@ -89,6 +89,7 @@ Material:
     - _UnderVoroDensity: -0.59
     - _UnderVoroSpeed: 0.82
     - _UnderVoroTile: 0.19
+    - _WaveFalloffRadius: 185
     - _WaveHeightAmp: 2.44
     - _WaveHeightMax: 1
     - _WaveHeightMin: 0
@@ -101,5 +102,6 @@ Material:
     - _FoamColour: {r: 3.6069357, g: 3.6069357, b: 3.6069357, a: 1}
     - _FoamDepth: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _ShallowColour: {r: 1, g: 1, b: 1, a: 1}
+    - _WaveFalloffCentre: {r: 318.8, g: 7, b: 507.9, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

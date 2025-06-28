@@ -65,6 +65,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _HeightBlendStrength: 0.67
+    - _HeightMax: 14.5
+    - _HeightMin: 61.1
     - _LightRamp: 1
     - _NoiseScale: 0.5
     - _NoiseScaleTwo: 0.5
@@ -77,7 +80,10 @@ Material:
     - _TextureStep: 179.99
     - _UVDistortionStrength: 0.05
     - _UVDistortionStrengthTwo: 0.05
+    - _WGrassGrad: 0.5
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _HighColor: {r: 0.4433962, g: 0.2911086, b: 0, a: 1}
+    - _LowColor: {r: 0.8705883, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3092132754187675613
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TestToon
+  m_Shader: {fileID: -6465566751694194690, guid: e32e6d24eecdadc44ada5726b3d9b006, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _DepthCutoff: 1.6
+    - _DepthVoroOpacity: 0.5
+    - _DepthVoronoiPower: 1
+    - _DepthVoronoiWobbleScale: 10
+    - _DepthVoronoiWobbleSpeed: 0.1
+    - _DepthWobbleScale: 10
+    - _DepthWobbleSpeed: 0.1
+    - _Distance: 4.73
+    - _FoamCutoff: 0.35
+    - _FoamDensity: 10
+    - _FoamIslandSpeed: 0.3
+    - _FoamSpeed: 2
+    - _FoamTotal: 0.34
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReflectWobbleGrScale: 0
+    - _ReflectWobbleMovement: 0
+    - _ReflectWobbleSpeed: 0
+    - _ReflectWobbleStr: 0
+    - _ReflectvsWaterLerp: 0.5
+    - _ScaleFoam: 0
+    - _ShallowColourStrength: 0
+    - _SurfaceFoamEdgeType: 0
+    - _SurfaceFoamOpacity: 0
+    - _SurfaceFoamPower: 1
+    - _SurfaceFoamScale2: 0.025
+    - _UnderVoroBlend: 0
+    - _UnderVoroDensity: 1
+    - _UnderVoroSpeed: 1
+    - _UnderVoroTile: 0
+    - _WaveFalloffRadius: 68.38
+    - _WaveHeightAmp: 0.7
+    - _WaveHeightMax: 1
+    - _WaveHeightMin: 0
+    - _WaveScale: 0.03
+    - _WaveSpeed: 7.09
+    m_Colors:
+    - _BaseColour: {r: 0.36320746, g: 0.75060457, b: 1, a: 0}
+    - _DepthColour: {r: 0.34420606, g: 0.43653566, b: 0.8584906, a: 0}
+    - _DepthDarkColour: {r: 0.12726948, g: 0.31514156, b: 0.49056596, a: 1}
+    - _FoamColour: {r: 6.498019, g: 6.498019, b: 6.498019, a: 1}
+    - _FoamDepth: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _PlaneOrigin: {r: 0, g: 0, b: 0, a: 0}
+    - _ShallowColour: {r: 0.7616144, g: 0.9719599, b: 0.99056596, a: 0}
+    - _WaveFalloffC: {r: 300, g: 0, b: 500, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

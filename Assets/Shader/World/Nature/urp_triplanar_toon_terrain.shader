@@ -26,6 +26,14 @@ Shader "Custom/URP/TriplanarToonTerrain"
         _NoiseScale("Noise Scale", Float) = 0.5
         _NoiseScaleTwo("Noise 2 Scale", Float) = 0.5
 
+        _WGrassGrad("World Grass Gradient", Float) = 0.5
+        _HeightMin("Height Min Gradient Grass", Float) = 10.0
+        _HeightMax("Height Min Gradient Grass", Float) = 10.0
+        _HeightBlendStrength("Height Blend Strength", Float) = 10.0
+        _LowColor("Low Colour", Color) = (1, 1, 1, 1)
+        _HighColor("High Colour", Color) = (1, 1, 1, 1)
+
+
         _LightRamp("Toon Ramp", Float) = 0.5
         _ShadowStrength("Shadow Strength", Float) = 0.7
     }
@@ -84,6 +92,12 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 float _NoiseScaleTwo;
                 float _LightRamp;
                 float _ShadowStrength;
+                float _WGrassGrad;
+                float _HeightMin;              // lowest height where gradient starts
+                float _HeightMax;              // highest height where gradient ends
+                float _HeightBlendStrength;    // 0 = no gradient influence, 1 = full influence
+                float4 _LowColor;              // bottom of gradient
+                float4 _HighColor;             // top of gradient
             CBUFFER_END
 
             TEXTURE2D(_TopTex);            SAMPLER(sampler_TopTex);
@@ -206,6 +220,11 @@ Shader "Custom/URP/TriplanarToonTerrain"
                 float3 mixTop = lerp(top, top3, noiseBlend1);
                 float noiseBlend2 = _NoiseTexTwo.Sample(sampler_NoiseTexTwo, IN.worldPos.xz * (_NoiseScaleTwo * 0.5)).r;
                 float3 topFinal = lerp(mixTop, top2, noiseBlend2);
+
+                float heightT = saturate((IN.worldPos.y - _HeightMin) / (_HeightMax - _HeightMin));
+                float3 heightColor = lerp(_LowColor, _HighColor, heightT);
+
+                topFinal = lerp(topFinal, heightColor, _HeightBlendStrength);
 
                 float2 sideUV = IN.worldPos.xy * _SideScale;
                 float3 side = _SideTex.Sample(sampler_SideTex, sideUV).rgb;

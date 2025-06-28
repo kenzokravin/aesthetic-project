@@ -18,7 +18,8 @@ public class OceanSpawner : MonoBehaviour
 
 
         GenerateOcean();
-       //Shader.SetGlobalVector("_WaveFalloffCentre", player.transform.position);
+       Shader.SetGlobalVector("_PlaneSize", planeSize);
+      
 
 
     }
@@ -28,8 +29,9 @@ public class OceanSpawner : MonoBehaviour
         if (player && oceanParent)
         {
             oceanParent.position = new Vector3(player.position.x, oceanHeight, player.position.z);
-            
-          //  Shader.SetGlobalVector("_WaveFalloffCentre", player.transform.position);
+            Shader.SetGlobalVector("_OceanManagerPos", oceanParent.position);
+
+            //  Shader.SetGlobalVector("_WaveFalloffCentre", player.transform.position);
         }
     }
 
@@ -54,7 +56,7 @@ public class OceanSpawner : MonoBehaviour
                     if (Mathf.Abs(x) != ring && Mathf.Abs(z) != ring && ring != 0) continue;
 
                     Vector3 spawnPosition = new Vector3(x * planeSize.x, 0, z * planeSize.y);
-                    GameObject plane = GeneratePlane(density, planeSize);
+                    GameObject plane = GeneratePlane(density, planeSize,spawnPosition);
                     plane.transform.position = spawnPosition;
                     plane.transform.parent = oceanParent;
                 }
@@ -62,14 +64,22 @@ public class OceanSpawner : MonoBehaviour
         }
     }
 
-    GameObject GeneratePlane(int resolution, Vector2 size)
+    GameObject GeneratePlane(int resolution, Vector2 size, Vector3 spawnPosition)
     {
         GameObject plane = new GameObject($"OceanPlane_{resolution}");
         MeshFilter mf = plane.AddComponent<MeshFilter>();
         MeshRenderer mr = plane.AddComponent<MeshRenderer>();
 
         if (oceanMaterial != null)
+        {
             mr.material = oceanMaterial;
+            // Example origin vector
+            Vector3 planeOrigin = new Vector3(spawnPosition.x, 0f, spawnPosition.y);
+
+            // Set the _PlaneOrigin property on the material
+            mr.material.SetVector("_PlaneOrigin", planeOrigin);
+        }
+
 
         Mesh mesh = new Mesh();
         Vector3[] vertices = new Vector3[(resolution + 1) * (resolution + 1)];

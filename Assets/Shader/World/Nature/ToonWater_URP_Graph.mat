@@ -69,39 +69,41 @@ Material:
     - _Distance: 13.26
     - _FoamCutoff: 7.39
     - _FoamDensity: 18.11
-    - _FoamIslandSpeed: 14.8
+    - _FoamIslandSpeed: 14.5
     - _FoamSpeed: 1.57
     - _FoamTotal: 1.2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ReflectWobbleGrScale: 3.28
-    - _ReflectWobbleMovement: 1.13
-    - _ReflectWobbleSpeed: 0.18
+    - _ReflectWobbleGrScale: 3.38
+    - _ReflectWobbleMovement: 0.002
+    - _ReflectWobbleSpeed: 0.04
     - _ReflectWobbleStr: -0.02
     - _ReflectvsWaterLerp: 0.27
     - _ScaleFoam: 12.82
     - _ShallowColourStrength: 1.25
     - _SurfaceFoamEdgeType: 1
     - _SurfaceFoamOpacity: 1
-    - _SurfaceFoamPower: 200
-    - _SurfaceFoamScale2: 0.02
+    - _SurfaceFoamPower: 48.96
+    - _SurfaceFoamScale2: 0.03
     - _UnderVoroBlend: 13.41
     - _UnderVoroDensity: -0.59
     - _UnderVoroSpeed: 0.82
     - _UnderVoroTile: 0.19
-    - _WaveFalloffRadius: 185
-    - _WaveHeightAmp: 2.44
+    - _WaveFalloffRadius: 115.27
+    - _WaveHeightAmp: 0.0006
     - _WaveHeightMax: 1
     - _WaveHeightMin: 0
     - _WaveScale: 0.03
-    - _WaveSpeed: 3.4
+    - _WaveSpeed: 5.7
     m_Colors:
     - _BaseColour: {r: 0, g: 0.03794145, b: 0.4188679, a: 1}
-    - _DepthColour: {r: 0, g: 0.82959604, b: 1, a: 1}
+    - _DepthColour: {r: 0, g: 0.83137226, b: 1, a: 1}
     - _DepthDarkColour: {r: 0.18665004, g: 0.7411871, b: 0.9245283, a: 1}
     - _FoamColour: {r: 3.6069357, g: 3.6069357, b: 3.6069357, a: 1}
     - _FoamDepth: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _PlaneOrigin: {r: 0, g: 0, b: 0, a: 0}
     - _ShallowColour: {r: 1, g: 1, b: 1, a: 1}
-    - _WaveFalloffCentre: {r: 318.8, g: 7, b: 507.9, a: 0}
+    - _WaveFalloffC: {r: 1, g: 0, b: 1, a: 0}
+    - _WaveFalloffCentre: {r: 331.26, g: 7, b: 533.3, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

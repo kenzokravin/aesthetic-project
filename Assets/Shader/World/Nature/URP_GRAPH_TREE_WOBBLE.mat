@@ -46,17 +46,22 @@ Material:
     m_Ints: []
     m_Floats:
     - _CutoffLightingThresh: 0.25
+    - _LocalGradStrength: 0.929
+    - _LocalHeightGradientMax: 0.25
+    - _LocalHeightGradientMin: 0.026
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
-    - _MovementScale: 1
+    - _MovementScale: 2.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SOFT_SHADOWS: 1
     - _ShadowStrength: 0.34
     - _WindDensity: 2
-    - _WindMovement: 1
+    - _WindMovement: 0.61
     m_Colors:
-    - _BaseColour: {r: 1, g: 0.42924526, b: 0.42924526, a: 0}
+    - _BaseColour: {r: 1, g: 0.42924523, b: 0.42924523, a: 0}
+    - _LocalGradColHigh: {r: 0.9433962, g: 0.8625944, b: 0.18244925, a: 0}
+    - _LocalGradColLow: {r: 0.41509432, g: 0.277426, b: 0.15468137, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &3699827588346107303

@@ -77,12 +77,12 @@ Material:
     - _ReflectWobbleGrScale: 3.38
     - _ReflectWobbleMovement: 0.002
     - _ReflectWobbleSpeed: 0.04
-    - _ReflectWobbleStr: -0.02
-    - _ReflectvsWaterLerp: 0.27
+    - _ReflectWobbleStr: 0.1
+    - _ReflectvsWaterLerp: 0.03
     - _ScaleFoam: 12.82
     - _ShallowColourStrength: 1.25
     - _SurfaceFoamEdgeType: 1
-    - _SurfaceFoamOpacity: 1
+    - _SurfaceFoamOpacity: 0
     - _SurfaceFoamPower: 48.96
     - _SurfaceFoamScale2: 0.03
     - _UnderVoroBlend: 13.41
